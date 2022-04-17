@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jmu.zjw.mapper.mOrderMapper">
+    <select id="findOrderById" parameterType="String" resultType="jmu.zjw.po.mOrder">
+        select * from mOrder where crId = #{crId}
+    </select>
+    <select id="findOrder" parameterType="String" resultType="jmu.zjw.po.mOrder">
+        select * from mOrder where tId in (select tId from Ticket where ofId in (select ofId from onFlight where fId = #{fId})) and oTime >= date_sub(now(),INTERVAL 1 MONTH)
+    </select>
+</mapper>

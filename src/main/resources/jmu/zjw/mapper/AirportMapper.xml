@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jmu.zjw.mapper.AirportMapper">
+    <insert id="insertAirport" parameterType="jmu.zjw.po.Airport">
+        insert into Airport(apName, cId) values(#{apName}, #{cId})
+    </insert>
+    <select id="findAirportById" parameterType="int" resultType="jmu.zjw.po.Airport">
+        select * from Airport where apId = #{apId}
+    </select>
+    <select id="findAirportByName" parameterType="String" resultType="jmu.zjw.po.Airport">
+        select * from Airport where apName = #{apName}
+    </select>
+</mapper>

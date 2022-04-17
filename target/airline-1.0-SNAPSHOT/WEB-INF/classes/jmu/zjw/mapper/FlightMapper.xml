@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jmu.zjw.mapper.FlightMapper">
+    <insert id="insertFlight" parameterType="jmu.zjw.po.Flight">
+        insert into Flight values(#{fId}, #{fName}, #{amId})
+    </insert>
+    <select id="findFlight"  resultType="jmu.zjw.po.Flight">
+        select * from Flight
+    </select>
+    <delete id="deleteFlight" parameterType="String">
+        delete from Ticket where ofId in (select ofId from onFlight where fId = #{fId});
+        delete from Seat where ofId in (select ofId from onFlight where fId = #{fId});
+        delete from Cabin where ofId in (select ofId from onFlight where fId = #{fId});
+        delete from onFlight where ofId in (select ofId from (select ofId from PerformFlight where fId = #{fId}) as pf);
+        delete from Flight where fId = #{fId};
+    </delete>
+</mapper>

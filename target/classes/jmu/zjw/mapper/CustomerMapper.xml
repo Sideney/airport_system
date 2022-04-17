@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jmu.zjw.mapper.CustomerMapper">
+    <select id="loginUser" parameterType="String" resultType="String">
+        select crName from Customer where crId = #{crId} and crPassword = #{crPassword}
+    </select>
+    <insert id="registerUser" parameterType="jmu.zjw.po.Customer">
+        insert into Customer values (#{crId}, #{crName}, #{crSex},  #{crPassword})
+    </insert>
+</mapper>

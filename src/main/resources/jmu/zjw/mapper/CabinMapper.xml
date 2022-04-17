@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jmu.zjw.mapper.CabinMapper">
+    <insert id="insertCabin" parameterType="jmu.zjw.po.Cabin">
+        insert into Cabin(clevel, Price, asRemainTicket, ofId) values(#{cLevel}, #{Price}, #{RemainTicket}, #{ofId})
+    </insert>
+    <select id="findCabinById" parameterType="String" resultType="jmu.zjw.po.Cabin">
+        select * from Cabin where ofId = #{ofId}
+    </select>
+    <update id="updateCabin" parameterType="int">
+        update Cabin set Price = #{Price} where cabinId = #{cabinId}
+    </update>
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jmu.zjw.mapper.onFlightMapper">
+
+    <select id="findAllonFlight" resultType="jmu.zjw.po.onFlight">
+        select * from onFlight
+    </select>
+    <select id="findonFlight" resultType="jmu.zjw.po.onFlight">
+        select * from onFlight where apId1 in (select apId from Airport where cId=(select cId from City where cName=#{estimateCity})) and apId2 in (select apId from Airport where cId=(select cId from City where cName=#{arriveCity})) and ofTime = #{estimateTime}
+    </select>
+    <insert id="insertonFlight" parameterType="jmu.zjw.po.onFlight">
+        insert into onFlight(ofId, ofTime, ofEstimateTime1, ofActualTime1, ofGate, ofAirTime, ofAirLine1, ofAirLine2, fId, apId1, apId2)
+        select #{ofId}, #{ofTime}, #{ofEstimateTime1}, #{ofActualTime1}, #{ofGate}, #{ofAirTime}, #{ofAirLine1}, #{ofAirLine2}, #{fId}, #{apId1}, #{apId2}
+    </insert>
+    <update id="updateAirport" parameterType="String">
+        update onFlight set ofAirLine1 = #{ofAirLine1}, ofAirLine2 = #{ofAirLine2} where ofId = #{ofId}
+    </update>
+    <select id="findonFlightByfId" parameterType="String" resultType="jmu.zjw.po.onFlight">
+        select * from onFlight where fId = #{fId}
+    </select>
+
+</mapper>
